@@ -29,9 +29,9 @@ public class ConexaoDB {
 
     public static void main(String... args) throws IOException, SQLException {
 
-        ConnectionFactory.openConnection();
+        Connection connection = ConnectionFactory.openConnection();
 
-        ConnectionFactory.closeConnection();
+        connection.close();
 
     }
 

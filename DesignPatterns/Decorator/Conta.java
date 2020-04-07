@@ -12,11 +12,11 @@ public class Conta {
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
 
 
-    public Conta(Integer numero, Date dataAbertura, Double saldo, String data) throws ParseException {
+    public Conta(Integer numero, Double saldo, Date data) throws ParseException {
         this.numero = numero;
         this.dataAbertura = dataAbertura;
         this.saldo = saldo;
-        this.dataAbertura = sdf.parse("data");
+        this.dataAbertura = data;
     }
 
 

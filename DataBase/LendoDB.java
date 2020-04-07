@@ -28,24 +28,22 @@ import java.util.Properties;
 public class LendoDB {
     public static void main(String... a) throws Exception {
 
-        Properties properties = new Properties();
-        properties.load(new FileReader("C:\\Users\\isaqu\\OneDrive\\Área de Trabalho\\Alura\\propriedadesdb.txt"));
 
-        Connection connection = ConnectionFactory.openConnection();
+        try(Connection connection = ConnectionFactory.openConnection()) {
 
-        Statement statement = connection.createStatement();
-        boolean b = statement.execute("SELECT * FROM PRODUTO");
-        System.out.println(b);
-        ResultSet resultSet = statement.getResultSet();
+            Statement statement = connection.createStatement();
+            boolean b = statement.execute("SELECT * FROM PRODUTO");
+            System.out.println(b);
+            ResultSet resultSet = statement.getResultSet();
 
-        System.out.println("id nome descrição");
-        while (resultSet.next()){
+            System.out.println("id nome descrição");
+            while (resultSet.next()) {
 
-            System.out.println(resultSet.getInt("id")+ " " +resultSet.getString("nome") + " " + resultSet.getString("descricao"));
+                System.out.println(resultSet.getInt("id") + " " + resultSet.getString("nome") + " " + resultSet.getString("descricao"));
+
+            }
 
         }
-
-        connection.close();
 
 
     }

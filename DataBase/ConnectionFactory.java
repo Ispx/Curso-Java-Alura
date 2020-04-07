@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 /*
@@ -23,12 +24,19 @@ Definição dos objetos:
 3º - E através deste objeto podemos percorrer os valores através do método next.
 
 */
-public class ConnectionFactory {
+public class ConnectionFactory implements AutoCloseable{
 
 
     private static Connection connection = null;
 
 
+    public static void controle(boolean b){
+        try {
+            connection.setAutoCommit(b);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static Connection openConnection(){
         Properties properties = getProperties();
@@ -59,16 +67,16 @@ public class ConnectionFactory {
         return properties;
     }
 
-    public static void closeConnection(){
 
+    @Override
+    public void close() throws Exception {
         try{
-            if (connection != null){connection.close();}
+            if (connection != null){connection.close();
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
 
         }
-
     }
-
 }
